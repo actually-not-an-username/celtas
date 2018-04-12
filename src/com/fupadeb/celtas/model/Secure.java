@@ -32,17 +32,14 @@ class Secure {
 		return decodedKey;
 	}
 
-	public String encode(String message)
-	{		
+	public String encode(String message) {
 		String encodedString = "";
-		try
-		{
+		try {
 			MessageDigest messageToDigest = MessageDigest.getInstance(MessageDigestAlgorithms.SHA_256);
 			messageToDigest.update(message.getBytes("UTF-8"));
-			byte[] digestBytes = messageToDigest.digest();						
+			byte[] digestBytes = messageToDigest.digest();
 			return Base64.encodeBase64String(digestBytes);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.log(3, this.getClass().getName(), "encode", e.getMessage());
 		}
 		return encodedString;

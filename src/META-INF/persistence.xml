@@ -3,6 +3,20 @@
 	<persistence-unit name="celtas" transaction-type="RESOURCE_LOCAL">
 		<class>com.fupadeb.celtas.model.Role</class>
 		<class>com.fupadeb.celtas.model.User</class>
+		<class>com.fupadeb.celtas.model.BloodType</class>
+		<class>com.fupadeb.celtas.model.EducationLevel</class>
+		<class>com.fupadeb.celtas.model.HealthCareOrg</class>
+		<class>com.fupadeb.celtas.model.IdentificationType</class>
+		<class>com.fupadeb.celtas.model.Locality</class>
+		<class>com.fupadeb.celtas.model.ParentType</class>
+		<class>com.fupadeb.celtas.model.PersonDetail</class>
+		<class>com.fupadeb.celtas.model.PersonRelative</class>
+		<class>com.fupadeb.celtas.model.PersonRelativePK</class>
+		<class>com.fupadeb.celtas.model.Person</class>
+		<class>com.fupadeb.celtas.model.Relative</class>
+		<class>com.fupadeb.celtas.model.TrainGroupHour</class>
+		<class>com.fupadeb.celtas.model.TrainGroupHourPK</class>
+		<class>com.fupadeb.celtas.model.TrainGroup</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://tantor.db.elephantsql.com:5432/gofdrpdt"/>
 			<property name="javax.persistence.jdbc.user" value="gofdrpdt"/>
