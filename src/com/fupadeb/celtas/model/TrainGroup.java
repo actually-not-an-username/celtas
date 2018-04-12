@@ -4,40 +4,33 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the train_groups database table.
  * 
  */
 @Entity
-@Table(name="train_groups")
-@NamedQuery(name="TrainGroup.findAll", query="SELECT t FROM TrainGroup t")
+@Table(name = "train_groups")
+@NamedQuery(name = "TrainGroup.findAll", query = "SELECT t FROM TrainGroup t")
 public class TrainGroup implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_group", insertable=false, updatable=false, unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_group", insertable = false, updatable = false, unique = true, nullable = false)
 	private Integer idGroup;
 
-	@Column(nullable=false, length=255)
+	@Column(nullable = false, length = 255)
 	private String description;
 
-	//bi-directional many-to-many association to Person
+	// bi-directional many-to-many association to Person
 	@ManyToMany
-	@JoinTable(
-		name="person_train_groups"
-		, joinColumns={
-			@JoinColumn(name="id_group", nullable=false)
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="id_person", nullable=false)
-			}
-		)
+	@JoinTable(name = "person_train_groups", joinColumns = {
+			@JoinColumn(name = "id_group", nullable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "id_person", nullable = false) })
 	private List<Person> persons;
 
-	//bi-directional many-to-one association to TrainGroupHour
-	@OneToMany(mappedBy="trainGroup")
+	// bi-directional many-to-one association to TrainGroupHour
+	@OneToMany(mappedBy = "trainGroup")
 	private List<TrainGroupHour> trainGroupHours;
 
 	public TrainGroup() {

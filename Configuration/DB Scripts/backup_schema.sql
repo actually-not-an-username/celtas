@@ -35,29 +35,29 @@ CREATE TABLE parent_types (
 
 CREATE TABLE persons (
     id_person SERIAL NOT NULL PRIMARY KEY,
-    name character varying(255),
-    surname character varying(255),
-    id_identification_type integer REFERENCES IDENTIFICATION_TYPES,
-    identification_number bigint,
-    birth_date date,
-    join_date date,
-    id_role integer REFERENCES roles
+    name character varying(255) NOT NULL,
+    surname character varying(255) NOT NULL,
+    id_identification_type integer NOT NULL REFERENCES IDENTIFICATION_TYPES,
+    identification_number NOT NULL bigint,
+    birth_date NOT NULL date,
+    join_date NOT NULL date,
+    id_role integer NOT NULL REFERENCES roles
 );
 
 
 CREATE TABLE person_details (
-    id_person integer REFERENCES PERSONS,
-    height integer,
-    weight integer,
-    id_blood_type integer REFERENCES blood_types,
-    id_health_care_org integer REFERENCES health_care_org,
-    id_education_level integer REFERENCES education_level,
+    id_person integer NOT NULL REFERENCES PERSONS,
+    height NOT NULL integer,
+    weight iNOT NULL nteger,
+    id_blood_type integer NOT NULL REFERENCES blood_types,
+    id_health_care_org integer NOT NULL REFERENCES health_care_org,
+    id_education_level integer NOT NULL REFERENCES education_level,
     school_name character varying(500),
-    id_locality integer REFERENCES localities,
+    id_locality integer NOT NULL REFERENCES localities,
     neighborhood character varying(500),
-    streetadress1 integer,
+    streetadress1 NOT NULL integer,
     streetaddress2 integer,
-    phone1 character varying(50),
+    phone1 NOT NULL character varying(50),
     phone2 character varying(50)
 );
 
@@ -69,11 +69,11 @@ CREATE TABLE person_details (
 CREATE TABLE relatives (
     id_relative SERIAL NOT NULL PRIMARY KEY,
     fullname character varying(200) NOT NULL,
-    id_identification_type integer REFERENCES identification_types,
-    identification_number bigint UNIQUE,
-    streetaddress1 character varying(500),
+    id_identification_type integer NOT NULL REFERENCES identification_types,
+    identification_number bigint NOT NULL UNIQUE,
+    streetaddress1 character varying(500) NOT NULL,
     phone1 character varying(50),
-    cellphone character varying(50),
+    cellphone character varying(50) NOT NULL,
     ocupation text
 );
 

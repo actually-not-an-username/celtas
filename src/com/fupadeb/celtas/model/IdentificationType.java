@@ -4,31 +4,32 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the identification_types database table.
  * 
  */
 @Entity
-@Table(name="identification_types")
-@NamedQuery(name="IdentificationType.findAll", query="SELECT i FROM IdentificationType i")
+@Table(name = "identification_types")
+@NamedQueries({ @NamedQuery(name = "IdentificationType.findAll", query = "SELECT i FROM IdentificationType i"),
+		@NamedQuery(name = "IdentificationType.findById", query = "SELECT i FROM IdentificationType i WHERE i.idIdentificationType = :inputIDNumber"),
+		@NamedQuery(name = "IdentificationType.findByDescription", query = "SELECT i FROM IdentificationType i WHERE i.description = :inputDescription") })
 public class IdentificationType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_identification_type", insertable=false, updatable=false, unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_identification_type", insertable = false, updatable = false, unique = true, nullable = false)
 	private Integer idIdentificationType;
 
-	@Column(insertable=false, updatable=false, length=255)
+	@Column(insertable = false, updatable = false, length = 255)
 	private String description;
 
-	//bi-directional many-to-one association to Person
-	@OneToMany(mappedBy="identificationType")
+	// bi-directional many-to-one association to Person
+	@OneToMany(mappedBy = "identificationType")
 	private List<Person> persons;
 
-	//bi-directional many-to-one association to Relative
-	@OneToMany(mappedBy="identificationType")
+	// bi-directional many-to-one association to Relative
+	@OneToMany(mappedBy = "identificationType")
 	private List<Relative> relatives;
 
 	public IdentificationType() {

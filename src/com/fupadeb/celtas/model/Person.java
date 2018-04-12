@@ -5,60 +5,63 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the persons database table.
  * 
  */
 @Entity
-@Table(name="persons")
-@NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
+@Table(name = "persons")
+@NamedQueries({ @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
+		@NamedQuery(name = "Person.findById", query = "SELECT p FROM Person p WHERE p.idPerson = :inputIDNumber"),
+		@NamedQuery(name = "Person.genericNameSearch", query = "SELECT p FROM Person p WHERE p.name LIKE concat('%', :name, '%') OR p.surname LIKE concat('%', :name, '%')"),
+		@NamedQuery(name = "Person.findByActivityStatus", query = "SELECT p FROM Person p WHERE p.activePerson = :inputIsActive"),
+		@NamedQuery(name = "Person.findByRole", query = "SELECT p FROM Person p WHERE p.idRole = :inputIDRole") })
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_person", insertable=false, updatable=false, unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_person", insertable = false, updatable = false, unique = true, nullable = false)
 	private Integer idPerson;
 
-	@Column(name="active_person", nullable=false)
+	@Column(name = "active_person", nullable = false)
 	private Boolean activePerson;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="birth_date", updatable=false)
+	@Column(name = "birth_date", updatable = false)
 	private Date birthDate;
 
-	@Column(name="id_role")
+	@Column(name = "id_role")
 	private Integer idRole;
 
-	@Column(name="identification_number", updatable=false)
+	@Column(name = "identification_number", updatable = false)
 	private Long identificationNumber;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="join_date", updatable=false)
+	@Column(name = "join_date", updatable = false)
 	private Date joinDate;
 
-	@Column(length=255)
+	@Column(length = 255)
 	private String name;
 
-	@Column(length=255)
+	@Column(length = 255)
 	private String surname;
 
-	//bi-directional many-to-one association to PersonDetail
-	@OneToMany(mappedBy="person")
+	// bi-directional many-to-one association to PersonDetail
+	@OneToMany(mappedBy = "person")
 	private List<PersonDetail> personDetails;
 
-	//bi-directional many-to-one association to PersonRelative
-	@OneToMany(mappedBy="person")
+	// bi-directional many-to-one association to PersonRelative
+	@OneToMany(mappedBy = "person")
 	private List<PersonRelative> personRelatives;
 
-	//bi-directional many-to-many association to TrainGroup
-	@ManyToMany(mappedBy="persons")
+	// bi-directional many-to-many association to TrainGroup
+	@ManyToMany(mappedBy = "persons")
 	private List<TrainGroup> trainGroups;
 
-	//bi-directional many-to-one association to IdentificationType
+	// bi-directional many-to-one association to IdentificationType
 	@ManyToOne
-	@JoinColumn(name="id_identification_type")
+	@JoinColumn(name = "id_identification_type")
 	private IdentificationType identificationType;
 
 	public Person() {

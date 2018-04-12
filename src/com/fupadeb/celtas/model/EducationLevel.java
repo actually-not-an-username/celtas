@@ -4,27 +4,28 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the education_level database table.
  * 
  */
 @Entity
-@Table(name="education_level")
-@NamedQuery(name="EducationLevel.findAll", query="SELECT e FROM EducationLevel e")
+@Table(name = "education_level")
+@NamedQueries({ @NamedQuery(name = "EducationLevel.findAll", query = "SELECT e FROM EducationLevel e"),
+		@NamedQuery(name = "EducationLevel.findById", query = "SELECT e FROM EducationLevel e WHERE e.idEducationLevel = :inputBloodType"),
+		@NamedQuery(name = "EducationLevel.findByDescription", query = "SELECT e FROM EducationLevel e WHERE e.description = :inputBloodType") })
 public class EducationLevel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_education_level", insertable=false, updatable=false, unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_education_level", insertable = false, updatable = false, unique = true, nullable = false)
 	private Integer idEducationLevel;
 
-	@Column(insertable=false, updatable=false, nullable=false, length=255)
+	@Column(insertable = false, updatable = false, nullable = false, length = 255)
 	private String description;
 
-	//bi-directional many-to-one association to PersonDetail
-	@OneToMany(mappedBy="educationLevel")
+	// bi-directional many-to-one association to PersonDetail
+	@OneToMany(mappedBy = "educationLevel")
 	private List<PersonDetail> personDetails;
 
 	public EducationLevel() {
