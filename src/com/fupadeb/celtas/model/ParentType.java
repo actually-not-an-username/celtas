@@ -11,7 +11,9 @@ import java.util.List;
  */
 @Entity
 @Table(name="parent_types")
-@NamedQuery(name="ParentType.findAll", query="SELECT p FROM ParentType p")
+@NamedQueries({ @NamedQuery(name="ParentType.findAll", query="SELECT p FROM ParentType p"),
+	@NamedQuery(name = "ParentType.findById", query = "SELECT p FROM ParentType p WHERE p.idParentType = :inputIDNumber"),
+	@NamedQuery(name = "ParentType.findByDescription", query = "SELECT p FROM ParentType p WHERE p.description = :inputDescription") })
 public class ParentType implements Serializable {
 	private static final long serialVersionUID = 1L;
 

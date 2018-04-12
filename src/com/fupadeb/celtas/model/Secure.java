@@ -9,7 +9,7 @@ import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 
 import com.fupadeb.celtas.logger.LoggerUtility;
 
-class Secure {
+public class Secure {
 	private LoggerUtility logger;
 
 	public Secure() {
