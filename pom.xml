@@ -42,7 +42,6 @@
   		<groupId>org.postgresql</groupId>
   		<artifactId>postgresql</artifactId>
   		<version>42.2.2</version>
-  		<type>bundle</type>
   	</dependency>
   	<dependency>
   		<groupId>org.eclipse.persistence</groupId>
