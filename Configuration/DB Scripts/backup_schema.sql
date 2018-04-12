@@ -46,7 +46,7 @@ CREATE TABLE persons (
 
 
 CREATE TABLE person_details (
-    id_person integer REFERENCES PERSONS,
+    id_person integer REFERENCES PERSONS UNIQUE,
     height integer,
     weight integer,
     id_blood_type integer REFERENCES blood_types,
@@ -60,6 +60,10 @@ CREATE TABLE person_details (
     phone1 character varying(50),
     phone2 character varying(50)
 );
+
+--ALTER TABLE person_details ADD CONSTRAINT pk_persons PRIMARY KEY (id_person);
+
+--ALTER TABLE person_details DELETE CONSTRAINT uk_persons;
 
 
 --drop table person_details;
@@ -86,6 +90,17 @@ CREATE TABLE person_relatives (
 	CONSTRAINT r_p_pt_pk
     PRIMARY KEY (id_relative,id_person,id_parent_type)
 );
+
+---------------------------------------------------------------- 
+--INSERTS
+----------------------------------------------------------------
+
+INSERT INTO roles (role_description) VALUES ('Administrator');
+INSERT INTO roles (role_description) VALUES ('Colaborador');
+INSERT INTO roles (role_description) VALUES ('Entrenador');
+INSERT INTO roles (role_description) VALUES ('Estudiante');
+INSERT INTO roles (role_description) VALUES ('Personal administrativo');
+
 
 CREATE TABLE train_groups (
     id_group SERIAL NOT NULL PRIMARY KEY,
