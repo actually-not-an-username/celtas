@@ -20,7 +20,7 @@
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://tantor.db.elephantsql.com:5432/gofdrpdt"/>
 			<property name="javax.persistence.jdbc.user" value="gofdrpdt"/>
-			<property name="javax.persistence.jdbc.password" value="TCcGWzuT2CkDYIIfF6Fy1PfUvrjRUPoD"/>
+			<property name="javax.persistence.jdbc.password" value="RHc6QNBSJXhqIp01WSfDdPxEjxx5ymEe"/>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 			<property name="eclipselink.ddl-generation" value="create-tables"/>
 			<property name="eclipselink.ddl-generation.output-mode" value="sql-script"/>

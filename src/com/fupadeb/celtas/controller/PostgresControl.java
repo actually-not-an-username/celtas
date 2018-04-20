@@ -59,4 +59,28 @@ public class PostgresControl {
 		tempEntityManager.close();
 		return true;
 	}
+
+	public Role getRole(String description) {		
+		EntityManager tempEntityManager = getEmFactory().createEntityManager();
+		Role role = tempEntityManager.createNamedQuery("Role.findByName", Role.class).setParameter("inputRole", description).getSingleResult();
+		return role;
+	}
+
+	public List<User> getUserByName(String nameOrSurname) {
+		EntityManager tempEntityManager = getEmFactory().createEntityManager();
+		List<User> users = tempEntityManager.createNamedQuery("User.genericNameSearch", User.class).setParameter("name", nameOrSurname).getResultList();
+		return users;
+	}
+	
+	public List<User> getAllUsers() {
+		EntityManager tempEntityManager = getEmFactory().createEntityManager();
+		List<User> users = tempEntityManager.createNamedQuery("User.findAll", User.class).getResultList();
+		return users;
+	}
+	
+	public List<User> getAllUsers(String email) {
+		EntityManager tempEntityManager = getEmFactory().createEntityManager();
+		List<User> users = tempEntityManager.createNamedQuery("User.findEmail", User.class).setParameter("email", email).getResultList();
+		return users;
+	}
 }
