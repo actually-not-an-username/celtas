@@ -4,47 +4,42 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
+
 /**
  * The persistent class for the relatives database table.
  * 
  */
 @Entity
-@Table(name = "relatives")
-@NamedQueries({ @NamedQuery(name = "Relative.findAll", query = "SELECT r FROM Relative r"),
-		@NamedQuery(name = "Relative.findById", query = "SELECT r FROM Relative r WHERE r.identificationNumber = :inputIDNumber") })
+@Table(name="relatives")
+@NamedQuery(name="Relative.findAll", query="SELECT r FROM Relative r")
 public class Relative implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_relative", insertable = false, updatable = false, unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_relative")
 	private Integer idRelative;
 
-	@Column(length = 50, nullable = false)
 	private String cellphone;
 
-	@Column(nullable = false, length = 200)
 	private String fullname;
 
-	@Column(name = "identification_number", updatable = false, unique = true, nullable = false)
+	@Column(name="identification_number")
 	private Long identificationNumber;
 
-	@Column(length = 2147483647, nullable = false)
 	private String ocupation;
 
-	@Column(length = 50)
 	private String phone1;
 
-	@Column(length = 500, nullable = false)
 	private String streetaddress1;
 
-	// bi-directional many-to-one association to PersonRelative
-	@OneToMany(mappedBy = "relative")
+	//bi-directional many-to-one association to PersonRelative
+	@OneToMany(mappedBy="relative")
 	private List<PersonRelative> personRelatives;
 
-	// bi-directional many-to-one association to IdentificationType
+	//bi-directional many-to-one association to IdentificationType
 	@ManyToOne
-	@JoinColumn(name = "id_identification_type")
+	@JoinColumn(name="id_identification_type")
 	private IdentificationType identificationType;
 
 	public Relative() {

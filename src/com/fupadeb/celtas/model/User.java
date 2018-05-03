@@ -4,44 +4,43 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
+
 /**
  * The persistent class for the users database table.
  * 
  */
 @Entity
-@Table(name = "users")
-@NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-	@NamedQuery(name = "User.findEmail", query = "SELECT u FROM User u WHERE u.email LIKE concat('%', :email, '%')"),
-	@NamedQuery(name = "User.genericNameSearch", query = "SELECT u FROM User u WHERE u.name LIKE concat('%', :name, '%') OR u.surName LIKE concat('%', :name, '%')") 
-	})
+@Table(name="users")
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(insertable = false, updatable = false, unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer uid;
 
-	@Column(nullable = false)
 	private Boolean active;
 
-	@Column(nullable = false, length = 255)
 	private String email;
 
-	@Column(nullable = false, length = 255)
 	private String name;
 
-	@Column(nullable = false, length = 2147483647)
 	private String password;
 
-	@Column(name = "sur_name", nullable = false, length = 255)
+	@Column(name="sur_name")
 	private String surName;
 
-	// bi-directional many-to-many association to Role
+	//bi-directional many-to-many association to Role
 	@ManyToMany
-	@JoinTable(name = "user_roles", joinColumns = {
-			@JoinColumn(name = "uid", nullable = false) }, inverseJoinColumns = {
-					@JoinColumn(name = "role_id", nullable = false) })
+	@JoinTable(
+		name="user_roles"
+		, joinColumns={
+			@JoinColumn(name="uid")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="role_id")
+			}
+		)
 	private List<Role> roles;
 
 	public User() {

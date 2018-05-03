@@ -3,94 +3,71 @@ package com.fupadeb.celtas.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+
 /**
  * The persistent class for the train_group_hours database table.
  * 
  */
 @Entity
-@Table(name = "train_group_hours")
-@NamedQuery(name = "TrainGroupHour.findAll", query = "SELECT t FROM TrainGroupHour t")
+@Table(name="train_group_hours")
+@NamedQuery(name="TrainGroupHour.findAll", query="SELECT t FROM TrainGroupHour t")
 public class TrainGroupHour implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private TrainGroupHourPK id;
 
-	@Column(nullable = false)
 	private Boolean h0;
 
-	@Column(nullable = false)
 	private Boolean h1;
 
-	@Column(nullable = false)
 	private Boolean h10;
 
-	@Column(nullable = false)
 	private Boolean h11;
 
-	@Column(nullable = false)
 	private Boolean h12;
 
-	@Column(nullable = false)
 	private Boolean h13;
 
-	@Column(nullable = false)
 	private Boolean h14;
 
-	@Column(nullable = false)
 	private Boolean h15;
 
-	@Column(nullable = false)
 	private Boolean h16;
 
-	@Column(nullable = false)
 	private Boolean h17;
 
-	@Column(nullable = false)
 	private Boolean h18;
 
-	@Column(nullable = false)
 	private Boolean h19;
 
-	@Column(nullable = false)
 	private Boolean h2;
 
-	@Column(nullable = false)
 	private Boolean h20;
 
-	@Column(nullable = false)
 	private Boolean h21;
 
-	@Column(nullable = false)
 	private Boolean h22;
 
-	@Column(nullable = false)
 	private Boolean h23;
 
-	@Column(nullable = false)
 	private Boolean h3;
 
-	@Column(nullable = false)
 	private Boolean h4;
 
-	@Column(nullable = false)
 	private Boolean h5;
 
-	@Column(nullable = false)
 	private Boolean h6;
 
-	@Column(nullable = false)
 	private Boolean h7;
 
-	@Column(nullable = false)
 	private Boolean h8;
 
-	@Column(nullable = false)
 	private Boolean h9;
 
-	// bi-directional many-to-one association to TrainGroup
+	//bi-directional many-to-one association to TrainGroup
 	@ManyToOne
-	@JoinColumn(name = "id_group", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name="id_group")
 	private TrainGroup trainGroup;
 
 	public TrainGroupHour() {

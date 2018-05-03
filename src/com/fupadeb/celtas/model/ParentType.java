@@ -11,18 +11,15 @@ import java.util.List;
  */
 @Entity
 @Table(name="parent_types")
-@NamedQueries({ @NamedQuery(name="ParentType.findAll", query="SELECT p FROM ParentType p"),
-	@NamedQuery(name = "ParentType.findById", query = "SELECT p FROM ParentType p WHERE p.idParentType = :inputIDNumber"),
-	@NamedQuery(name = "ParentType.findByDescription", query = "SELECT p FROM ParentType p WHERE p.description = :inputDescription") })
+@NamedQuery(name="ParentType.findAll", query="SELECT p FROM ParentType p")
 public class ParentType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_parent_type", insertable=false, updatable=false, unique=true, nullable=false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_parent_type")
 	private Integer idParentType;
 
-	@Column(nullable=false, length=255)
 	private String description;
 
 	//bi-directional many-to-one association to PersonRelative

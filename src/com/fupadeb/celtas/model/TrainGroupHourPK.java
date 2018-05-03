@@ -12,10 +12,9 @@ public class TrainGroupHourPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="id_group", insertable=false, updatable=false, unique=true, nullable=false)
+	@Column(name="id_group", insertable=false, updatable=false)
 	private Integer idGroup;
 
-	@Column(unique=true, nullable=false)
 	private Integer day;
 
 	public TrainGroupHourPK() {

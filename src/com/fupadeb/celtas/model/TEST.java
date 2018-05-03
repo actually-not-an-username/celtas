@@ -12,13 +12,13 @@ public class TEST {
 		PostgresControl dbControl = new PostgresControl();
 		List<Role> roleList = new ArrayList<Role>();
 		Role role = dbControl.getRole("Administrator");
-		roleList.add(role);
-		dbControl.createUser("Usuario", "Apellido", "email@fakedomain.com", security.encode("Contraseña"), roleList);
-		dbControl.createUser("Apellido", "FAKEEEE", "email2@fakedomain.com", security.encode("Contraseña"), roleList);
+		//roleList.add(role);
+		//dbControl.createUser("Usuario", "Apellido", "email@fakedomain.com", security.encode("Contraseña"), roleList);
+		//dbControl.createUser("Apellido", "FAKEEEE", "email2@fakedomain.com", security.encode("Contraseña"), roleList);
 
 		// demo of some users
-		System.out.println("Queriying all users with name or surname = \"Apellido\"");
-		List<User> myUsers = dbControl.getUserByName("Apellido");
+		// System.out.println("Queriying all users with name or surname = \"Apellido\"");
+		/*List<User> myUsers = dbControl.getUserByName("Apellido");
 		for (int i = 0; i < myUsers.size(); i++) {
 			User tempUser = myUsers.get(i);
 			System.out.println("UserId: " + tempUser.getUid().toString());
@@ -31,7 +31,7 @@ public class TEST {
 				System.out.println(">> " + tempUser.getRoles().get(j));
 			}
 			System.out.println("The user is active?: " + tempUser.getActive().toString());
-		}
+		}*/
 	}
 
 }

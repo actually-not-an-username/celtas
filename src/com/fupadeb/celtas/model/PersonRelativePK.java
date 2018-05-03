@@ -12,13 +12,13 @@ public class PersonRelativePK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="id_relative", insertable=false, updatable=false, unique=true, nullable=false)
+	@Column(name="id_relative", insertable=false, updatable=false)
 	private Integer idRelative;
 
-	@Column(name="id_person", insertable=false, updatable=false, unique=true, nullable=false)
+	@Column(name="id_person", insertable=false, updatable=false)
 	private Integer idPerson;
 
-	@Column(name="id_parent_type", insertable=false, updatable=false, unique=true, nullable=false)
+	@Column(name="id_parent_type", insertable=false, updatable=false)
 	private Integer idParentType;
 
 	public PersonRelativePK() {

@@ -4,28 +4,26 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
+
 /**
  * The persistent class for the health_care_org database table.
  * 
  */
 @Entity
-@Table(name = "health_care_org")
-@NamedQueries({ @NamedQuery(name = "HealthCareOrg.findAll", query = "SELECT h FROM HealthCareOrg h"),
-		@NamedQuery(name = "HealthCareOrg.findById", query = "SELECT h FROM HealthCareOrg h WHERE h.idHealthCareOrg = :inputHealtCare"),
-		@NamedQuery(name = "HealthCareOrg.findByDescription", query = "SELECT h FROM HealthCareOrg h WHERE h.description = :inputHealtCare") })
+@Table(name="health_care_org")
+@NamedQuery(name="HealthCareOrg.findAll", query="SELECT h FROM HealthCareOrg h")
 public class HealthCareOrg implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_health_care_org", insertable = false, updatable = false, unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_health_care_org")
 	private Integer idHealthCareOrg;
 
-	@Column(nullable = false, length = 255)
 	private String description;
 
-	// bi-directional many-to-one association to PersonDetail
-	@OneToMany(mappedBy = "healthCareOrg")
+	//bi-directional many-to-one association to PersonDetail
+	@OneToMany(mappedBy="healthCareOrg")
 	private List<PersonDetail> personDetails;
 
 	public HealthCareOrg() {

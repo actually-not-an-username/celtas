@@ -4,28 +4,26 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
+
 /**
  * The persistent class for the localities database table.
  * 
  */
 @Entity
-@Table(name = "localities")
-@NamedQueries({ @NamedQuery(name = "Locality.findAll", query = "SELECT l FROM Locality l"),
-		@NamedQuery(name = "Locality.findById", query = "SELECT l FROM Locality l WHERE l.idLocality = :inputIDNumber"),
-		@NamedQuery(name = "Locality.findByDescription", query = "SELECT l FROM Locality l WHERE l.description = :inputDescription") })
+@Table(name="localities")
+@NamedQuery(name="Locality.findAll", query="SELECT l FROM Locality l")
 public class Locality implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_locality", insertable = false, updatable = false, unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_locality")
 	private Integer idLocality;
 
-	@Column(insertable = false, updatable = false, length = 255)
 	private String description;
 
-	// bi-directional many-to-one association to PersonDetail
-	@OneToMany(mappedBy = "locality")
+	//bi-directional many-to-one association to PersonDetail
+	@OneToMany(mappedBy="locality")
 	private List<PersonDetail> personDetails;
 
 	public Locality() {

@@ -19,17 +19,17 @@ public class PersonRelative implements Serializable {
 
 	//bi-directional many-to-one association to ParentType
 	@ManyToOne
-	@JoinColumn(name="id_parent_type", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="id_parent_type")
 	private ParentType parentType;
 
 	//bi-directional many-to-one association to Person
 	@ManyToOne
-	@JoinColumn(name="id_person", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="id_person")
 	private Person person;
 
 	//bi-directional many-to-one association to Relative
 	@ManyToOne
-	@JoinColumn(name="id_relative", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="id_relative")
 	private Relative relative;
 
 	public PersonRelative() {

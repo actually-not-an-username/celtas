@@ -10,28 +10,28 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="person_details")
-@NamedQuery(name="PersonDetail.findAll", query="SELECT p FROM PersonDetail p")	
+@NamedQuery(name="PersonDetail.findAll", query="SELECT p FROM PersonDetail p")
 public class PersonDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_person", insertable=false, updatable=false)
+	private Integer idPerson;
+
 	private Integer height;
 
-	@Column(length=500)
 	private String neighborhood;
 
-	@Column(length=50)
 	private String phone1;
 
-	@Column(length=50)
 	private String phone2;
 
-	@Column(name="school_name", length=500)
+	@Column(name="school_name")
 	private String schoolName;
 
-	@Column(length=500)
 	private String streetaddress1;
 
-	@Column(length=500)
 	private String streetaddress2;
 
 	private Integer weight;
@@ -57,12 +57,19 @@ public class PersonDetail implements Serializable {
 	private Locality locality;
 
 	//bi-directional one-to-one association to Person
-	@Id
-	@OneToOne	
+	@OneToOne
 	@JoinColumn(name="id_person")
 	private Person person;
 
 	public PersonDetail() {
+	}
+
+	public Integer getIdPerson() {
+		return this.idPerson;
+	}
+
+	public void setIdPerson(Integer idPerson) {
+		this.idPerson = idPerson;
 	}
 
 	public Integer getHeight() {

@@ -5,64 +5,65 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * The persistent class for the persons database table.
  * 
  */
 @Entity
-@Table(name = "persons")
+@Table(name="persons")
 @NamedQueries({ @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
-		@NamedQuery(name = "Person.findById", query = "SELECT p FROM Person p WHERE p.idPerson = :inputIDNumber"),
-		@NamedQuery(name = "Person.genericNameSearch", query = "SELECT p FROM Person p WHERE p.name LIKE concat('%', :name, '%') OR p.surname LIKE concat('%', :name, '%')"),
-		@NamedQuery(name = "Person.findByActivityStatus", query = "SELECT p FROM Person p WHERE p.activePerson = :inputIsActive"),
-		@NamedQuery(name = "Person.findByRole", query = "SELECT p FROM Person p WHERE p.idRole = :inputIDRole") })
+	@NamedQuery(name = "Person.findById", query = "SELECT p FROM Person p WHERE p.idPerson = :inputIDNumber"),
+	@NamedQuery(name = "Person.genericNameSearch", query = "SELECT p FROM Person p WHERE p.name LIKE concat('%', :name, '%') OR p.surname LIKE concat('%', :name, '%')"),
+	@NamedQuery(name = "Person.findByActivityStatus", query = "SELECT p FROM Person p WHERE p.activePerson = :inputIsActive"),
+	@NamedQuery(name = "Person.findByRole", query = "SELECT p FROM Person p WHERE p.role.roleId = :inputIDRole") })
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_person", insertable = false, updatable = false, unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_person")
 	private Integer idPerson;
 
-	@Column(name = "active_person", nullable = false)
+	@Column(name="active_person")
 	private Boolean activePerson;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "birth_date", updatable = false)
+	@Column(name="birth_date")
 	private Date birthDate;
 
-	@Column(name = "id_role")
-	private Integer idRole;
-
-	@Column(name = "identification_number", updatable = false)
+	@Column(name="identification_number")
 	private Long identificationNumber;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "join_date", updatable = false)
+	@Column(name="join_date")
 	private Date joinDate;
 
-	@Column(length = 255)
 	private String name;
 
-	@Column(length = 255)
 	private String surname;
 
-	// bi-directional many-to-one association to PersonDetail
-	@OneToMany(mappedBy = "person")
-	private List<PersonDetail> personDetails;
+	//bi-directional one-to-one association to PersonDetail
+	@OneToOne(mappedBy="person")
+	private PersonDetail personDetail;
 
-	// bi-directional many-to-one association to PersonRelative
-	@OneToMany(mappedBy = "person")
+	//bi-directional many-to-one association to PersonRelative
+	@OneToMany(mappedBy="person")
 	private List<PersonRelative> personRelatives;
 
-	// bi-directional many-to-many association to TrainGroup
-	@ManyToMany(mappedBy = "persons")
+	//bi-directional many-to-many association to TrainGroup
+	@ManyToMany(mappedBy="persons")
 	private List<TrainGroup> trainGroups;
 
-	// bi-directional many-to-one association to IdentificationType
+	//bi-directional many-to-one association to IdentificationType
 	@ManyToOne
-	@JoinColumn(name = "id_identification_type")
+	@JoinColumn(name="id_identification_type")
 	private IdentificationType identificationType;
+
+	//bi-directional many-to-one association to Role
+	@ManyToOne
+	@JoinColumn(name="id_role")
+	private Role role;
 
 	public Person() {
 	}
@@ -89,14 +90,6 @@ public class Person implements Serializable {
 
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
-	}
-
-	public Integer getIdRole() {
-		return this.idRole;
-	}
-
-	public void setIdRole(Integer idRole) {
-		this.idRole = idRole;
 	}
 
 	public Long getIdentificationNumber() {
@@ -131,26 +124,12 @@ public class Person implements Serializable {
 		this.surname = surname;
 	}
 
-	public List<PersonDetail> getPersonDetails() {
-		return this.personDetails;
+	public PersonDetail getPersonDetail() {
+		return this.personDetail;
 	}
 
-	public void setPersonDetails(List<PersonDetail> personDetails) {
-		this.personDetails = personDetails;
-	}
-
-	public PersonDetail addPersonDetail(PersonDetail personDetail) {
-		getPersonDetails().add(personDetail);
-		personDetail.setPerson(this);
-
-		return personDetail;
-	}
-
-	public PersonDetail removePersonDetail(PersonDetail personDetail) {
-		getPersonDetails().remove(personDetail);
-		personDetail.setPerson(null);
-
-		return personDetail;
+	public void setPersonDetail(PersonDetail personDetail) {
+		this.personDetail = personDetail;
 	}
 
 	public List<PersonRelative> getPersonRelatives() {
@@ -189,6 +168,14 @@ public class Person implements Serializable {
 
 	public void setIdentificationType(IdentificationType identificationType) {
 		this.identificationType = identificationType;
+	}
+
+	public Role getRole() {
+		return this.role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 }
