@@ -43,7 +43,7 @@ public class PostgresControl {
 	public boolean createUser(String name, String surName, String email, String password, List<Role> userRoles) {
 		EntityManager tempEntityManager = getEmFactory().createEntityManager();
 		tempEntityManager.getEntityManagerFactory().getCache().evictAll();
-		//tempEntityManager.getTransaction().begin();
+		tempEntityManager.getTransaction().begin();
 
 		User tempUser = new User();
 		String encodedPassword = getSecurityProvider().encode(password);
@@ -54,8 +54,8 @@ public class PostgresControl {
 		tempUser.setPassword(encodedPassword);
 		tempUser.setRoles(userRoles);
 
-		//tempEntityManager.persist(tempUser);
-		//tempEntityManager.getTransaction().commit();
+		tempEntityManager.persist(tempUser);
+		tempEntityManager.getTransaction().commit();
 		tempEntityManager.close();
 		return true;
 	}
@@ -66,11 +66,11 @@ public class PostgresControl {
 		return role;
 	}
 
-	/*public List<User> getUserByName(String nameOrSurname) {
+	public List<User> getUserByName(String nameOrSurname) {
 		EntityManager tempEntityManager = getEmFactory().createEntityManager();
 		List<User> users = tempEntityManager.createNamedQuery("User.genericNameSearch", User.class).setParameter("name", nameOrSurname).getResultList();
 		return users;
-	}*/
+	}
 	
 	public List<User> getAllUsers() {
 		EntityManager tempEntityManager = getEmFactory().createEntityManager();

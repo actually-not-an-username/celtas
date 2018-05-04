@@ -11,6 +11,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="users")
+@NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+	@NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.uid = :inputIDNumber"),
+	@NamedQuery(name = "User.genericNameSearch", query = "SELECT u FROM User u WHERE u.name LIKE concat('%', :name, '%') OR u.surName LIKE concat('%', :name, '%')"),
+	@NamedQuery(name = "User.findByActivityStatus", query = "SELECT u FROM User u WHERE u.active = :inputIsActive")})
+
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
