@@ -184,7 +184,7 @@ def asistencia():
 @app.route("/test")
 def test():
     form = UserForm()
-    return render_template("user.html", form = form)
+    return render_template("texto.html", form = form)
 
 
 @app.route('/uploads/<path:filename>', methods=['GET', 'POST'])
