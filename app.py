@@ -143,7 +143,7 @@ def findEducationLevels(id):
         12: 'Técnico',
         13: 'Universitario'
     }
-    return education_levels.get(id, "Nivel educativo inválido")
+    return education_levels.get(id, "No reporta nivel educativo")
 
 
 def findRoles(id):
@@ -156,7 +156,7 @@ def findRoles(id):
 
 
 def findGroups(id):
-    group = Grupo.query.get(int(id)).first()
+    group = Grupo.query.filter(Grupo.id == int(id)).first()    
     return group.descripcion
 
 
@@ -293,9 +293,16 @@ def query_user():
 def get_report():
     users = Usuario.query.with_entities(Usuario.nombre, Usuario.apellido, Usuario.fechanacimiento, Usuario.gruposanguineo, Usuario.factorrh, Usuario.peso, Usuario.estatura, Usuario.documento,
                                         Usuario.tipodocumento, Usuario.eps, Usuario.niveleducativo, Usuario.telefono, Usuario.direccion, Usuario.institucioneducativa, Usuario.fechacreacion, Usuario.rol, Usuario.idgrupo, Usuario.email).all()
-    for user in users:
-        print((zip(user.keys(), user.values())))
-    return redirect('/uploads/results/listado_usuarios.xlsx')
+    dataFrame = DataFrame(users)
+    dataFrame['tipodocumento'] = dataFrame['tipodocumento'].apply(findDocTypes)
+    dataFrame['rol'] = dataFrame['rol'].apply(findRoles)
+    dataFrame['niveleducativo'] = dataFrame['niveleducativo'].apply(findEducationLevels)
+    dataFrame['idgrupo'] = dataFrame['idgrupo'].apply(findGroups)
+    os.makedirs("uploads/results/", exist_ok=True)
+    dataFrame.to_html('uploads/results/listado_usuarios.xls')
+    print(dataFrame.head())
+    dataFrame.to_csv(encoding='utf-8', header=True, index=True, sep=';',path_or_buf=('uploads/results/listado_usuarios.csv'))
+    return redirect('uploads/results/listado_usuarios.xls')
 
 
 @app.route("/update_user/<profile_id>", methods=['GET', 'POST'])

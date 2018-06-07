@@ -1,0 +1,111 @@
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>nombre</th>
+      <th>apellido</th>
+      <th>fechanacimiento</th>
+      <th>gruposanguineo</th>
+      <th>factorrh</th>
+      <th>peso</th>
+      <th>estatura</th>
+      <th>documento</th>
+      <th>tipodocumento</th>
+      <th>eps</th>
+      <th>niveleducativo</th>
+      <th>telefono</th>
+      <th>direccion</th>
+      <th>institucioneducativa</th>
+      <th>fechacreacion</th>
+      <th>rol</th>
+      <th>idgrupo</th>
+      <th>email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Application</td>
+      <td>Administrator</td>
+      <td>1900-01-01</td>
+      <td>O</td>
+      <td>+</td>
+      <td>50</td>
+      <td>170</td>
+      <td>10000000</td>
+      <td>Cédula de ciudadanía</td>
+      <td>ninguna</td>
+      <td>No reporta nivel educativo</td>
+      <td>10000000</td>
+      <td>Calle siempre viva # 123</td>
+      <td></td>
+      <td>2018-01-01</td>
+      <td>Administrador</td>
+      <td>Administradores</td>
+      <td>admin@fupadeb.com</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Usuario</td>
+      <td>Pruebas</td>
+      <td>1900-01-01</td>
+      <td>o</td>
+      <td>+</td>
+      <td>50</td>
+      <td>170</td>
+      <td>10000001</td>
+      <td>Cédula de ciudadanía</td>
+      <td>ninguna</td>
+      <td>No reporta nivel educativo</td>
+      <td>10000000</td>
+      <td>Calle siempre viva # 123</td>
+      <td>None</td>
+      <td>2018-01-01</td>
+      <td>Colaborador</td>
+      <td>5 a 6 años</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Usuario</td>
+      <td>Prueba1</td>
+      <td>2018-06-07</td>
+      <td>A</td>
+      <td>+</td>
+      <td>20</td>
+      <td>175</td>
+      <td>10101010101</td>
+      <td>Cédula de ciudadanía</td>
+      <td>ninguna</td>
+      <td>Primero</td>
+      <td>7560001019</td>
+      <td>calle falsa 123</td>
+      <td>ooooo</td>
+      <td>2018-06-07</td>
+      <td>Administrador</td>
+      <td>10 a 11 años</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Estudiante</td>
+      <td>Estudiantil</td>
+      <td>2018-06-05</td>
+      <td>A</td>
+      <td>-</td>
+      <td>40</td>
+      <td>157</td>
+      <td>10110101099337</td>
+      <td>Tarjeta de identidad</td>
+      <td>tal</td>
+      <td>Septimo</td>
+      <td>1234567</td>
+      <td>calle falsa # 234</td>
+      <td>pascual</td>
+      <td>2018-06-07</td>
+      <td>Estudiante</td>
+      <td>8 a 9 años</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

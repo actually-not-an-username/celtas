@@ -5,9 +5,10 @@
 {% elif users is defined %} 
 {% include 'user_list.html'%} 
 {% endif %}
-<center>                
-    <a href="/create_user" class="btn btn-default btn-md" role="button">Crear usuario</a><br>
-    
-    <!-- <a href="/export_users" class="btn btn-default btn-md" role="button">Exportar listado de usuarios</a><br> -->
+<center>
+<div class="btn-group text-center">
+    <a href="/create_user" class="btn btn-default btn-md" role="button">Crear usuario</a>
+    <a href="/export_users" class="btn btn-default btn-md" role="button">Exportar listado de usuarios</a>        
+</div> 
 </center>
 {% endblock %}
