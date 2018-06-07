@@ -317,12 +317,17 @@ def asistencia():
     return render_template("layout.html")
 
 
+##@app.route("/test")
+##def test():
+##    form = UserForm()
+##    form.group_id.choices = [(g.id, g.descripcion)
+##                             for g in Grupo.query.order_by('descripcion')]
+##    return render_template("user.html", form=form)
+
 @app.route("/test")
 def test():
     form = UserForm()
-    form.group_id.choices = [(g.id, g.descripcion)
-                             for g in Grupo.query.order_by('descripcion')]
-    return render_template("user.html", form=form)
+    return render_template("index.html", form = form)
 
 
 @app.route('/uploads/<path:filename>', methods=['GET', 'POST'])
