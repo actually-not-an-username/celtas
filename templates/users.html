@@ -1,0 +1,11 @@
+{% extends "layout.html" %} 
+
+{% block body %} 
+{% if userid is defined %} 
+{% elif users is defined %} 
+{% include 'user_list.html'%} 
+{% endif %}
+<center>                
+    <a href="/create_user" class="btn btn-default btn-md" role="button">Crear usuario</a><br>
+</center>
+{% endblock %}

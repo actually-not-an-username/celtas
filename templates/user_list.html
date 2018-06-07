@@ -1,0 +1,37 @@
+<div class="container">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Nombre completo</th>
+                <th scope="col">Identificación</th>
+                <th scope="col">Fecha de nacimiento</th>
+                <th scope="col">Ver perfil</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td> {{ user.apellido.strip() }} {{ user.nombre.strip() }} </td>
+                <td> {{ user.documento.strip() }} </td>
+                <td> {{ user.fechanacimiento }} </td>
+                <td> "put profile" </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if next_url is defined or prev_url is defined %}
+    <center>
+        <ul class="pagination pagination-sm">
+            {% if prev_url is defined and prev_url is not none %}
+            <li>
+                <a href="{{ prev_url }}">Página anterior</a>
+            </li>
+            {% endif %} {% if next_url is defined and next_url is not none %}
+            <li>
+                <a href="{{ next_url }}">Página siguiente</a>
+            </li>
+            {% endif %}
+        </ul>
+    </center>
+    {% endif %}
+</div>
