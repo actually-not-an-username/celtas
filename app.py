@@ -167,7 +167,7 @@ def load_user(id):
 
 @app.route("/")
 def index():
-    return render_template("layout.html")
+    return render_template("index.html")
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -284,8 +284,15 @@ def create_user():
 
 @app.route("/get_user/<profile_id>")
 @login_required
-def query_user():
-    return render_template("users.html", users=users.items, next_url=next_url, prev_url=prev_url)
+def query_user(profile_id):
+    user = Usuario.query.filter(Usuario.documento == str(profile_id)).first()
+    doctype = findDocTypes(user.tipodocumento)
+    role = findRoles(user.rol)
+    educative_level = findEducationLevels(user.niveleducativo)
+    group = findGroups(user.idgrupo)        
+    return render_template("profile.html", user=user
+        , tipo_documento=doctype, user_role=role
+        , educative_level=educative_level, user_group = group)
 
 
 @app.route("/export_users")
@@ -305,10 +312,15 @@ def get_report():
     return redirect('uploads/results/listado_usuarios.xls')
 
 
-@app.route("/update_user/<profile_id>", methods=['GET', 'POST'])
+@app.route("/delete_user/<profile_id>", methods=['GET', 'POST'])
 @login_required
-def update_user():
-    return render_template("users.html", users=users.items, next_url=next_url, prev_url=prev_url)
+def delete_user(profile_id):
+    user = Usuario.query.filter(Usuario.documento == str(profile_id)).first()
+    userfullname = user.nombre +' '+ user.apellido
+    database.session.delete(user)
+    database.session.commit()
+    flash("Se eliminó de la base de datos al usuario: " + userfullname)
+    return redirect(url_for('user_management'))
 
 
 @app.route("/asistencia")
