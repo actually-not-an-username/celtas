@@ -67,20 +67,6 @@ class Usuario(UserMixin, database.Model):
     def check_password(self, password):
         return check_password_hash(self.clave, password)
 
-
-class RegistroAsistencia(database.Model):
-    id = database.Column(database.Integer, primary_key=True)
-    idgrupo = database.Column(
-        database.Integer, database.ForeignKey('grupo.id'))
-    idusuario = database.Column(
-        database.Integer, database.ForeignKey('usuario.id'))
-    fecha = database.Column(
-        database.Date, index=True, default=datetime.utcnow)
-
-    def __repr__(self):
-        return '<Asistencia {} : {}>'.format(self.usuario, self.fecha)
-
-
 def clearFiles(filename, path):
     filepath = os.path.join(path, filename)
     if os.path.exists(filepath):
