@@ -1,0 +1,67 @@
+{% extends "layout.html" %} {% block body %}
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Modificacion de usuarios</h1>
+    </div>
+    <form method="GET" enctype="multipart/form-data">
+        {% from "includes/_formhelper.html" import render_field %} <!--{{ form.hidden_tag() }}-->
+        <h3>Datos personales</h3>
+        <div class="row">
+            <!--<div class="col-sm-4">{{ render_field(form.firstname) }}</div> -->
+            <div class="col-sm-4">{{ render_field(form.firstname) }}</div>
+            <!-- <div class="col-sm-4">{{render_field(form.surname)}}</div> -->
+           <!-- <div class="col-sm-4">{{render_field(form.birthdate)}}</div>-->
+        </div>
+        <!--<p>
+            <div class="row text-center">
+                <div class="col-sm-5">{{render_field(form.document_type)}}</div>
+                <div class="col-sm-5">{{render_field(form.document_number)}}</div>
+            </div>
+        </p>
+        <p>
+            <div class="row">
+                <div class="col-sm-4">{{render_field(form.blood_group)}}</div>
+                <div class="col-sm-4">{{render_field(form.rh_factor)}}</div>
+                <div class="col-sm-4">{{render_field(form.role_type)}}</div>
+            </div>
+        </p>
+        <p>
+            <div class="row">
+                <div class="col-sm-4">{{render_field(form.eps)}}</div>
+                <div class="col-sm-4">{{render_field(form.group_id)}}</div>
+            </div>
+        </p>
+        <p>
+            <div class="row">
+                <div class="col-sm-4">{{render_field(form.height)}}</div>
+                <div class="col-sm-4">{{render_field(form.weight)}}</div>
+            </div>
+        </p>        
+        <hr>
+        <h3>Datos de ubicación</h3>
+        <div class="row">
+            <div class="col-sm-5">{{render_field(form.address)}}</div>
+            <div class="col-sm-5">{{render_field(form.phone)}}</div>
+        </div>
+        <hr>
+        <h3>Datos educativos</h3>
+        <div class="row">
+            <div class="col-sm-5">{{render_field(form.education_level)}}</div>
+            <div class="col-sm-5">{{render_field(form.educative_plantel)}}</div>
+        </div>
+        <hr>
+        <p>
+            Los campos de correo electrónico y contraseña son opcionales, y solamente deben ser diligenciados si el usuario debe tener
+            acceso a este sistema de información.
+            <br> {{render_field(form.email)}} {{render_field(form.password)}}
+        </p>
+        {{ form.csrf_token }}
+        <center>
+            <p>
+                <br>
+                <input type="submit" value="Enviar" class="btn-default">
+            </p>
+        </center>-->
+    </form>
+</div>
+{% endblock %}

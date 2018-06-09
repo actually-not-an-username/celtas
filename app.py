@@ -322,11 +322,41 @@ def delete_user(profile_id):
     flash("Se eliminó de la base de datos al usuario: " + userfullname)
     return redirect(url_for('user_management'))
 
+@app.route("/modify_user/<profile_id>", methods=['GET', 'POST'])
+@login_required
+def modify_user(profile_id):
+    form = UserForm()
+    form.firstname = Usuario.query.filter(Usuario.documento == str(profile_id)).first()
+    
+                            #[(g.id, g.descripcion)
+                             #for g in Grupo.query.order_by('descripcion')]
+    
+    #user = Usuario.query.filter(Usuario.documento == str(profile_id)).first()
+    #doctype = findDocTypes(user.tipodocumento)
+    #role = findRoles(user.rol)
+    #educative_level = findEducationLevels(user.niveleducativo)
+    #group = findGroups(user.idgrupo)
+    return render_template("usrmod.html", form=form
+        #, tipo_documento=doctype, user_role=role
+        #, educative_level=educative_level, user_group = group
+        )
+
 
 @app.route("/asistencia")
 @login_required
 def asistencia():
-    return render_template("layout.html")
+    page = request.args.get('page', default=1, type=int)
+    users = Usuario.query.order_by(Usuario.apellido).paginate(
+        page, app.config['ROWS_PER_PAGE'], False)
+    if users.has_next:
+        next_url = url_for('user_management', page=users.next_num)
+    else:
+        next_url = None
+    if users.has_prev:
+        prev_url = url_for('user_management', page=users.prev_num)
+    else:
+        prev_url = None
+    return render_template("asistence.html", users=users.items, next_url=next_url, prev_url=prev_url)
 
 
 ##@app.route("/test")
