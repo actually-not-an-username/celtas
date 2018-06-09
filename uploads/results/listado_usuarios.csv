@@ -1,6 +1,4 @@
 ;nombre;apellido;fechanacimiento;gruposanguineo;factorrh;peso;estatura;documento;tipodocumento;eps;niveleducativo;telefono;direccion;institucioneducativa;fechacreacion;rol;idgrupo;email
 0;Application;Administrator;1900-01-01;O ;+;50;170;10000000;Cédula de ciudadanía;ninguna;No reporta nivel educativo;10000000;Calle siempre viva # 123;;2018-01-01;Administrador;Administradores;admin@fupadeb.com
-1;Usuario;Pruebas;1900-01-01;o ;+;50;170;10000001;Cédula de ciudadanía;ninguna;No reporta nivel educativo;10000000;Calle siempre viva # 123;;2018-01-01;Colaborador;5 a 6 años;
-2;Usuario;Prueba1;2018-06-07;A ;+;20;175;10101010101;Cédula de ciudadanía;ninguna;Primero;7560001019;calle falsa 123;ooooo;2018-06-07;Administrador;10 a 11 años;
-3;Estudiante;Estudiantil;2018-06-05;A ;-;40;157;10110101099337;Tarjeta de identidad;tal;Septimo;1234567;calle falsa # 234;pascual;2018-06-07;Estudiante;8 a 9 años;
-4;aaa;aaaa;2018-06-11;AB;-;13;342;827273;Registro Civil;asdasdasd;Once;123123;asdf;sdfjk;2018-06-07;Administrador;10 a 11 años;prueba@prueba.com
+1;Estudiante;Estudiantil;2018-06-05;A ;-;40;157;10110101099337;Tarjeta de identidad;tal;Septimo;1234567;calle falsa # 234;pascual;2018-06-07;Estudiante;8 a 9 años;
+2;cñlaSLJASHFD;ASJDFHKJASD;2018-06-05;B ;-;324;2131;123123;Tarjeta de identidad;ASAS;Primero;sakjfhdkajshfk;sdfads;asdfadsf;2018-06-08;Colaborador;7 a 8 años;

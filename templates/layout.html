@@ -32,10 +32,7 @@
 					{% else %}
 					<li>
 						<a href="/usuarios">Usuarios</a>
-					</li>	
-					<li>
-						<a href="/asistencia">Asistencia</a>
-					</li>					
+					</li>
 					<li>
 						<a href="{{ url_for('logout') }}">Cerrar Sesión</a>
 					</li>
@@ -55,7 +52,8 @@
 	{% endfor %} {% endif %} {% endwith %} {% block body %} {% endblock %}
 
 	<!-- Footer -->
-	<footer>
+	<br>
+	<footer class="jumbotron text-center">
 		Desarrollado por Juan Sebastián Jiménez Valero y Andrés Manrique | &copy; Algunos derechos reservados.
 	</footer>
 </body>

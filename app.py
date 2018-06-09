@@ -57,8 +57,6 @@ class Usuario(UserMixin, database.Model):
         database.Integer, database.ForeignKey('grupo.id'))
     email = database.Column(database.String(250), index=True, unique=True)
     clave = database.Column(database.String(250), unique=True)
-    '''acudientes = database.relationship(
-        'Relativos', backref='acudientes', lazy='dynamic')'''
 
     def __repr__(self):
         return '<Usuario {} {}>'.format(self.nombre, self.apellido)
@@ -83,19 +81,19 @@ class RegistroAsistencia(database.Model):
         return '<Asistencia {} : {}>'.format(self.usuario, self.fecha)
 
 
-class Relativos(database.Model):
-    id = database.Column(database.Integer, primary_key=True)
-    parentesco = database.Column(database.String(250))
-    nombre = database.Column(database.String(250))
-    apellido = database.Column(database.String(250))
-    telefono = database.Column(database.String(30))
-    direccion = database.Column(database.String(30))
-    ocupacion = database.Column(database.String(250))
-    idusuario = database.Column(
-        database.Integer, database.ForeignKey('usuario.id'))
-
-    def __repr__(self):
-        return '<Acudiente {} {}>'.format(self.nombre, self.apellido)
+# class Relativos(database.Model):
+#    id = database.Column(database.Integer, primary_key=True)
+#    parentesco = database.Column(database.String(250))
+#    nombre = database.Column(database.String(250))
+#    apellido = database.Column(database.String(250))
+#    telefono = database.Column(database.String(30))
+#    direccion = database.Column(database.String(30))
+#    ocupacion = database.Column(database.String(250))
+#    idusuario = database.Column(
+#        database.Integer, database.ForeignKey('usuario.id'))
+#
+#    def __repr__(self):
+#        return '<Acudiente {} {}>'.format(self.nombre, self.apellido)
 
 
 def clearFiles(filename, path):
@@ -156,7 +154,7 @@ def findRoles(id):
 
 
 def findGroups(id):
-    group = Grupo.query.filter(Grupo.id == int(id)).first()    
+    group = Grupo.query.filter(Grupo.id == int(id)).first()
     return group.descripcion
 
 
@@ -263,19 +261,6 @@ def create_user():
         if form.phone.data is not None:
             current_user.telefono = form.phone.data
         print(current_user)
-        '''uploadFile = request.picture.data
-        if uploadFile is not None:
-            newFileName = changeName(
-                uploadFile.filename, current_user.documento)
-            print('About to load picture :)' + newFileName)
-            if newFileName != None:
-                ext = getFileExt(newFileName)
-                path = os.path.join(
-                    app.config['UPLOADS_DEFAULT_DEST'], "photos/")
-                clearFiles(newFileName, path)
-                uploadFile.filename = newFileName
-                datasets.save(uploadFile)
-                flash('Foto del estudiante: ' + newFileName + ' cargada correctamente')'''
         database.session.add(current_user)
         database.session.commit()
         return redirect(url_for('user_management'))
@@ -289,10 +274,8 @@ def query_user(profile_id):
     doctype = findDocTypes(user.tipodocumento)
     role = findRoles(user.rol)
     educative_level = findEducationLevels(user.niveleducativo)
-    group = findGroups(user.idgrupo)        
-    return render_template("profile.html", user=user
-        , tipo_documento=doctype, user_role=role
-        , educative_level=educative_level, user_group = group)
+    group = findGroups(user.idgrupo)
+    return render_template("profile.html", user=user, tipo_documento=doctype, user_role=role, educative_level=educative_level, user_group=group)
 
 
 @app.route("/export_users")
@@ -303,12 +286,14 @@ def get_report():
     dataFrame = DataFrame(users)
     dataFrame['tipodocumento'] = dataFrame['tipodocumento'].apply(findDocTypes)
     dataFrame['rol'] = dataFrame['rol'].apply(findRoles)
-    dataFrame['niveleducativo'] = dataFrame['niveleducativo'].apply(findEducationLevels)
+    dataFrame['niveleducativo'] = dataFrame['niveleducativo'].apply(
+        findEducationLevels)
     dataFrame['idgrupo'] = dataFrame['idgrupo'].apply(findGroups)
     os.makedirs("uploads/results/", exist_ok=True)
     dataFrame.to_html('uploads/results/listado_usuarios.xls')
     print(dataFrame.head())
-    dataFrame.to_csv(encoding='utf-8', header=True, index=True, sep=';',path_or_buf=('uploads/results/listado_usuarios.csv'))
+    dataFrame.to_csv(encoding='utf-8', header=True, index=True,
+                     sep=';', path_or_buf=('uploads/results/listado_usuarios.csv'))
     return redirect('uploads/results/listado_usuarios.xls')
 
 
@@ -316,60 +301,85 @@ def get_report():
 @login_required
 def delete_user(profile_id):
     user = Usuario.query.filter(Usuario.documento == str(profile_id)).first()
-    userfullname = user.nombre +' '+ user.apellido
+    userfullname = user.nombre + ' ' + user.apellido
     database.session.delete(user)
     database.session.commit()
     flash("Se eliminó de la base de datos al usuario: " + userfullname)
     return redirect(url_for('user_management'))
 
+
 @app.route("/modify_user/<profile_id>", methods=['GET', 'POST'])
 @login_required
 def modify_user(profile_id):
     form = UserForm()
-    form.firstname = Usuario.query.filter(Usuario.documento == str(profile_id)).first()
-    
-                            #[(g.id, g.descripcion)
-                             #for g in Grupo.query.order_by('descripcion')]
-    
-    #user = Usuario.query.filter(Usuario.documento == str(profile_id)).first()
-    #doctype = findDocTypes(user.tipodocumento)
-    #role = findRoles(user.rol)
-    #educative_level = findEducationLevels(user.niveleducativo)
-    #group = findGroups(user.idgrupo)
-    return render_template("usrmod.html", form=form
-        #, tipo_documento=doctype, user_role=role
-        #, educative_level=educative_level, user_group = group
-        )
+    form.group_id.choices = [(g.id, g.descripcion)
+                             for g in Grupo.query.order_by('descripcion')]
+    current_user = Usuario.query.filter(
+        Usuario.documento == str(profile_id)).first()
+    if request.method == "GET":
+        form.firstname.data = current_user.nombre
+        form.birthdate.process_data(current_user.fechanacimiento)
+        form.surname.data = current_user.apellido
+        form.rh_factor.data = current_user.factorrh
+        form.document_number.data = current_user.documento
+        form.eps.data = current_user.eps
+        form.group_id.data = current_user.idgrupo
+        form.height.data = current_user.estatura
+        form.weight.data = current_user.peso
+        form.educative_plantel.data = current_user.institucioneducativa
+        form.address.data = current_user.direccion
+        form.phone.data = current_user.telefono
+        if (current_user.email is not None or current_user.email != ""):
+            form.email.data = current_user.email
+    if form.validate_on_submit():
+        if form.birthdate.data is not None:
+            print(form.birthdate.data)
+            current_user.fechanacimiento = form.birthdate.data
+        if form.firstname.data is not None:
+            current_user.nombre = form.firstname.data
+        if form.surname.data is not None:
+            current_user.apellido = form.surname.data
+        if form.email.data is not None:
+            current_user.email = form.email.data
+        if form.password.data is not None:
+            current_user.set_password(form.password.data)
+        if form.blood_group.data is not None:
+            current_user.gruposanguineo = form.blood_group.data
+        if form.rh_factor.data is not None:
+            current_user.factorrh = form.rh_factor.data
+        if form.document_type.data is not None:
+            current_user.tipodocumento = form.document_type.data
+        if form.document_number.data is not None:
+            current_user.documento = form.document_number.data
+        if form.role_type.data is not None:
+            current_user.rol = form.role_type.data
+        if form.eps.data is not None:
+            current_user.eps = form.eps.data
+        if form.education_level.data is not None:
+            current_user.niveleducativo = form.education_level.data
+        if form.group_id.data is not None:
+            current_user.idgrupo = form.group_id.data
+        if form.height.data is not None:
+            current_user.estatura = form.height.data
+        if form.weight.data is not None:
+            current_user.peso = form.weight.data
+        if form.educative_plantel.data is not None:
+            current_user.institucioneducativa = form.educative_plantel.data
+        if form.address.data is not None:
+            current_user.direccion = form.address.data
+        if form.phone.data is not None:
+            current_user.telefono = form.phone.data
+        database.session.commit()
+        flash("el usuario: " + current_user.nombre + ' ' +
+              current_user.apellido + " fue actualizado correctamente")
+        return redirect(url_for('user_management'))
+    return render_template("user.html", form=form)
 
-
-@app.route("/asistencia")
-@login_required
-def asistencia():
-    page = request.args.get('page', default=1, type=int)
-    users = Usuario.query.order_by(Usuario.apellido).paginate(
-        page, app.config['ROWS_PER_PAGE'], False)
-    if users.has_next:
-        next_url = url_for('user_management', page=users.next_num)
-    else:
-        next_url = None
-    if users.has_prev:
-        prev_url = url_for('user_management', page=users.prev_num)
-    else:
-        prev_url = None
-    return render_template("asistence.html", users=users.items, next_url=next_url, prev_url=prev_url)
-
-
-##@app.route("/test")
-##def test():
-##    form = UserForm()
-##    form.group_id.choices = [(g.id, g.descripcion)
-##                             for g in Grupo.query.order_by('descripcion')]
-##    return render_template("user.html", form=form)
 
 @app.route("/test")
 def test():
     form = UserForm()
-    return render_template("index.html", form = form)
+    return render_template("index.html", form=form)
 
 
 @app.route('/uploads/<path:filename>', methods=['GET', 'POST'])

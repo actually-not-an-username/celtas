@@ -7,29 +7,25 @@ from wtforms.validators import DataRequired, Email, ValidationError, Optional
 
 class UserForm(FlaskForm):
     birthdate = DateField('Fecha de nacimiento', format='%Y-%m-%d')
-    '''picture = FileField('Seleccione la foto: ', validators=[FileRequired(
-        message="Archivo requerido"), FileAllowed(
-        ['.jpg', '.jpe', '.jpeg', '.png', '.gif', '.svg', '.bmp'], "solamente se permiten fotos")])'''
     firstname = StringField('Nombres', validators=[DataRequired()])
     surname = StringField('Apellidos', validators=[DataRequired()])
     password = PasswordField('Contraseña')
     blood_group = SelectField(
-        'Grupo Sanguineo', choices=[('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O')], validators=[DataRequired()]
+        'Grupo Sanguineo', choices=[('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O')]
     )
     rh_factor = SelectField(
         'Factor RH', choices=[('+', '+'), ('-', '-')], validators=[DataRequired()]
     )
     document_type = SelectField(
-        'Tipo de documento', choices=[('1', 'Cédula de ciudadanía'), ('2', 'Tarjeta de identidad'), ('3', 'Registro Civil')], validators=[DataRequired()]
+        'Tipo de documento', choices=[('1', 'Cédula de ciudadanía'), ('2', 'Tarjeta de identidad'), ('3', 'Registro Civil')]
     )
     document_number = StringField(
         'Número de documento', validators=[DataRequired()])
     role_type = SelectField(
-        'Rol', choices=[('1', 'Administrador'), ('2', 'Colaborador'), ('3', 'Estudiante')], validators=[DataRequired()]
-    )
+        'Rol', choices=[('1', 'Administrador'), ('2', 'Colaborador'), ('3', 'Estudiante')])
     eps = StringField('E.P.S', validators=[DataRequired()])
     education_level = SelectField(
-        'Grado de escolaridad', choices=[('1', 'Primero'), ('2', 'Segundo'), ('3', 'Tercero'), ('4', 'Cuarto'), ('5', 'Quinto'), ('6', 'Sexto'), ('7', 'Séptimo'), ('8', 'Octavo'), ('9', 'Noveno'), ('10', 'Décimo'), ('11', 'Once'), ('12', 'Técnico'), ('13', 'Univesitario')], validators=[DataRequired()]
+        'Grado de escolaridad', choices=[('1', 'Primero'), ('2', 'Segundo'), ('3', 'Tercero'), ('4', 'Cuarto'), ('5', 'Quinto'), ('6', 'Sexto'), ('7', 'Séptimo'), ('8', 'Octavo'), ('9', 'Noveno'), ('10', 'Décimo'), ('11', 'Once'), ('12', 'Técnico'), ('13', 'Univesitario')]
     )
     group_id = SelectField(u'Grupo', coerce=int)
     height = IntegerField('Estatura en centimetros',
