@@ -67,6 +67,7 @@ class Usuario(UserMixin, database.Model):
     def check_password(self, password):
         return check_password_hash(self.clave, password)
 
+
 def clearFiles(filename, path):
     filepath = os.path.join(path, filename)
     if os.path.exists(filepath):
