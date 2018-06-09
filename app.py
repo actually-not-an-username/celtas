@@ -81,21 +81,6 @@ class RegistroAsistencia(database.Model):
         return '<Asistencia {} : {}>'.format(self.usuario, self.fecha)
 
 
-# class Relativos(database.Model):
-#    id = database.Column(database.Integer, primary_key=True)
-#    parentesco = database.Column(database.String(250))
-#    nombre = database.Column(database.String(250))
-#    apellido = database.Column(database.String(250))
-#    telefono = database.Column(database.String(30))
-#    direccion = database.Column(database.String(30))
-#    ocupacion = database.Column(database.String(250))
-#    idusuario = database.Column(
-#        database.Integer, database.ForeignKey('usuario.id'))
-#
-#    def __repr__(self):
-#        return '<Acudiente {} {}>'.format(self.nombre, self.apellido)
-
-
 def clearFiles(filename, path):
     filepath = os.path.join(path, filename)
     if os.path.exists(filepath):
