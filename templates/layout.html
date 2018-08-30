@@ -1,0 +1,63 @@
+<!doctype HTML>
+<html>
+
+<head>
+	<link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Celtas</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+</head>
+
+<body>
+
+	<head>
+		<nav class="navbar navbar-inverse navbar-static-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">Sistema de gestión Celtas</a>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active">
+						<a href="/">Inicio</a>
+					</li>
+					{% if current_user.is_anonymous %}
+					<li>
+						<a href="{{ url_for('login') }}">Iniciar sesión</a>
+					</li>
+					{% else %}
+					<li>
+						<a href="/usuarios">Usuarios</a>
+					</li>
+					<li>
+						<a href="/asistencia">Listado de asistencia</a>
+					</li>
+					<li>
+						<a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
+		</nav>
+	</head>
+
+	{% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+	<div class="alert alert-info alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		{{ message }}
+	</div>
+	{% endfor %} {% endif %} {% endwith %} {% block body %} {% endblock %}
+
+	<!-- Footer -->
+	<footer class="container-fluid bg-4 text-center">
+		Desarrollado por Juan Sebastián Jiménez Valero y Andrés Manrique | &copy; Algunos derechos reservados.
+	</footer>
+</body>
+
+</html>
