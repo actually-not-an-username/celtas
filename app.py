@@ -351,7 +351,7 @@ def modify_user(profile_id):
 @app.route("/test")
 def test():
     form = UserForm()
-    return render_template("index.html", form=form)
+    return render_template("texto.html", form = form)
 
 
 @app.route('/uploads/<path:filename>', methods=['GET', 'POST'])
