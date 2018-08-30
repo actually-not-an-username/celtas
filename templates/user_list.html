@@ -1,20 +1,22 @@
 <div class="container">
+    <input class="form-control" id="searcher" type="text" placeholder="Buscar">
+    <br>
     <table class="table">
         <thead class="thead-light">
             <tr>
                 <th scope="col">Nombre completo</th>
                 <th scope="col">Identificación</th>
                 <th scope="col">Fecha de nacimiento</th>
-                <th scope="col">Ver perfil</th>
+                <th scope="col">Perfil completo</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="userTable">
             {% for user in users %}
             <tr>
                 <td> {{ user.apellido.strip() }} {{ user.nombre.strip() }} </td>
                 <td> {{ user.documento.strip() }} </td>
                 <td> {{ user.fechanacimiento }} </td>
-                <td> "put profile" </td>
+                <td> <a href="/get_user/{{ user.documento.strip() }}"> Visitar perfil </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -35,3 +37,14 @@
     </center>
     {% endif %}
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#searcher").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#userTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

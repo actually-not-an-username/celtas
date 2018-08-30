@@ -1,0 +1,98 @@
+{% extends 'layout.html'%} {% block body %}
+
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h3>Perfil del usuario {{ user.nombre.strip() }} {{ user.apellido.strip() }} </h3>
+        <p>
+            A continuación se presenta la información correspondiente.
+        </p>
+    </div>
+    <div class="container">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Datos personales</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        El usuario {{ user.nombre.strip() }}, identificado con
+                        <strong> {{ tipo_documento }} </strong> número:
+                        <strong> {{ user.documento }}</strong>, se encuentra registrado en el sistema de información desde la fecha:
+                        {{ user.fechacreacion }}, se tiene conocimiento de que su fecha de nacimiento es {{ user.fechanacimiento
+                        }}, y sus datos básicos son:
+                        <br>
+                        <p>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <strong>Tipo de sangre</strong>
+                                </div>
+                                <div class="col-sm-3">
+                                    <strong>Peso</strong>
+                                </div>
+                                <div class="col-sm-3">
+                                    <strong>Estatura</strong>
+                                </div>
+                                <div class="col-sm-3">
+                                    <strong>E.P.S.</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">{{user.gruposanguineo}} {{user.factorrh}}</div>
+                                <div class="col-sm-3">{{user.peso}}</div>
+                                <div class="col-sm-3">{{user.estatura}}</div>
+                                <div class="col-sm-3">{{user.eps}}</div>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Datos de ubicación</a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">La dirección registrada para el usuario es: {{ user.direccion }}, y el número de contacto: {{ user.telefono
+                        }}.
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Datos educativos</a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">La institución educativa a la cual pertenece el usuario es: {{ user.institucioneducativa }}, y el grado
+                        de escolaridad alcanzado: {{ educative_level }}.</div>
+                </div>
+            </div>
+            {% if user.email is not none and user.email != "" %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Más información</a>
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body">El correo registrado para este usuario es:
+                        <strong> {{ user.email }} </strong>, y su rol es:
+                        <strong> {{ user_role }} </strong>lo cual le brinda al usuario acceso completo a esta plataforma mediante
+                        la contraseña que se halla definido durante el registro.</div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<center>
+    <div class="btn-group text-center">
+        <a href="/delete_user/{{ user.documento }}" class="btn btn-default btn-md" role="button">Eliminar este usuario</a>
+        <a href="/modify_user/{{ user.documento }}" class="btn btn-default btn-md" role="button">Editar este usuario</a>
+    </div>
+</center>
+{% endblock %}
